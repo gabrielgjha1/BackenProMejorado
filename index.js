@@ -9,13 +9,20 @@ const app = express();
 //VvipNyWRERYZQF2u
 //gabrielgjha1
 
+//cors
+app.use(cors());
+
+
+
 //base de datos
 dbConnection();
 
-//cors
-app.use(cors())
+//Lectura y parseo del body 
+app.use(express.json());
 
 //rutas
+app.use('/api/usuario', require('./routes/usuarios') );
+app.use('/api/login', require('./routes/login') );
 
 
 //verificar puerto

@@ -13,7 +13,7 @@ const dbConnection = async()=>{
         
         });
         console.log('Base de datos OK')
-
+        console.log('Base de datos OK')
     }catch (err){
         console.log(err);
         throw new Error('Error a la hora de iniciar la BD');
