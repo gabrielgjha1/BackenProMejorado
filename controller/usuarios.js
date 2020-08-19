@@ -6,18 +6,26 @@ const  {generarJWT} = require('../helpers/jwt');
 
 const GetUsuarios = async (req,res)=>{
 
+    const desde = Number(req.query.desde || 0);
+    console.log(desde);
+
     try {
-    const usuarios =  await Usuario.find( {},'nombre email role' )
-    
-    res.status(200).json({
+
+       const [usuarios,Total] = await  Promise.all([
+            await Usuario.find( {},'nombre email role' ).skip(desde).limit(5),
+            await Usuario.count()
+        ])
+
+    return res.status(200).json({
         usuarios,
-        status:'ok'
+        status:'ok',
+        Total
 
     });
 
     } catch (error) {
 
-        res.status(500).json({
+      return  res.status(500).json({
             Mmensaje:"Error el servidor revento",
             status:false
     

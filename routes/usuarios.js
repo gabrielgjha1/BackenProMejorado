@@ -14,7 +14,7 @@ app.post('/',
         check('password','Password obligatoria').not().isEmpty(),
         ] ,
     CrearUSuario);
-app.put('/:id',actualizarUsuario);
-app.delete('/:id',BorrarUsuario);
+app.put('/:id',validarJWT,actualizarUsuario);
+app.delete('/:id',validarJWT,BorrarUsuario);
 
 module.exports=app;

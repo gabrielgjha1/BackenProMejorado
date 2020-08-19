@@ -4,7 +4,8 @@ const jwt = require('jsonwebtoken');
 const validarJWT = (req,res,next)=>{
 
     const token = req.header('token');
-    console.log(token);
+
+
     if (!token){
 
 
@@ -18,8 +19,11 @@ const validarJWT = (req,res,next)=>{
 
 
     try {
+
         const {_id} = jwt.verify(token,process.env.JWT_SECRET);
         req._id=_id;
+        next();
+
     } catch (error) {
 
         return res.status(401).json({
@@ -31,13 +35,7 @@ const validarJWT = (req,res,next)=>{
 
     }
     
-  
 
-    
-
-
-
-    next();
 }
 
 module.exports={
