@@ -13,12 +13,15 @@ const app = express();
 app.use(cors());
 
 
+//Lectura y parseo del body 
+app.use(express.json());
 
 //base de datos
 dbConnection();
 
-//Lectura y parseo del body 
-app.use(express.json());
+//Directorio publico 
+app.use(express.static('public'));
+
 
 //rutas
 app.use('/api/usuario', require('./routes/usuarios') );
