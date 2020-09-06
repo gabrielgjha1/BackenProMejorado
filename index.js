@@ -33,7 +33,7 @@ app.use('/api/buscar',require('./routes/buscarTodo'));
 app.use('/api/subir',require('./routes/subir'));
 
 app.get('*',(req,res)=>{
-    res.sendFile(path(__dirname,'public/index.html'))
+    res.sendFile(path.resolve(__dirname,'public/index.html'));
 });
 
 //verificar puerto
