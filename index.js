@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 
 require ('dotenv').config();
 
@@ -31,6 +32,9 @@ app.use('/api/medicos',require('./routes/Medicos'));
 app.use('/api/buscar',require('./routes/buscarTodo'));
 app.use('/api/subir',require('./routes/subir'));
 
+app.get('*',(req,res)=>{
+    res.sendFile(path(__dirname,'public/index.html'))
+});
 
 //verificar puerto
 app.listen(process.env.PORT,()=>{
