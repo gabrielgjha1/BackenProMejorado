@@ -7,15 +7,15 @@ const  {generarJWT} = require('../helpers/jwt');
 const GetUsuarios = async (req,res)=>{
 
     const desde = Number(req.query.desde || 0);
-    console.log(desde);
+   
+    
 
     try {
 
        const [usuarios,Total] = await  Promise.all([
-            await Usuario.find( {},'nombre email role' ).skip(desde).limit(5),
+            await Usuario.find( {},'nombre email role img google' ).skip(desde).limit(5),
             await Usuario.count()
         ])
-
     return res.status(200).json({
         usuarios,
         status:'ok',
@@ -37,9 +37,9 @@ const GetUsuarios = async (req,res)=>{
 
 
 const CrearUSuario = async (req,res)=>{
-    console.log(req.body)
+  
     const {email,password} = req.body;
-    console.log(req.body)
+
     const errores = validationResult(req);
 
     if (!errores.isEmpty()){
@@ -116,6 +116,7 @@ const actualizarUsuario = async (req,res)=>{
         
         if (usuario.email==VerificarEmail.email){
             delete usuario.email;
+            
         }else{
             
             const correoUsado = await Usuario.findOne({email:usuario.email});
@@ -148,7 +149,7 @@ const actualizarUsuario = async (req,res)=>{
 //guardar los datos actualizados
     try {
         
-      const UsuarioActualizado = await Usuario.findByIdAndUpdate(id,usuario);
+      const UsuarioActualizado = await Usuario.findByIdAndUpdate(id,usuario,{new:true});
 
       if (!UsuarioActualizado){
         

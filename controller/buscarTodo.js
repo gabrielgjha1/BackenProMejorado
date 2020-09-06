@@ -16,9 +16,9 @@ const buscarTodo= async (req,res)=>{
     
             Usuarios.find({nombre:expR}),
     
-            Medicos.find({nombre:expR}),
+            Medicos.find({nombre:expR}).populate('hospitales'),
     
-            Hospitales.find({nombre:expR})
+            Hospitales.find({nombre:expR}).populate('usuario'),
     
         ]);
     
@@ -63,7 +63,7 @@ const buscarColeccion = async (req,res)=>{
     
             case 'hospitales':
     
-                 data  =await  Hospitales.find({nombre:expR});
+                 data  =await  Hospitales.find({nombre:expR}).populate('usuario','email nombre img')
                 
                 break;
         

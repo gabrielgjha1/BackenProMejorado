@@ -8,7 +8,7 @@ const ConsultarMedicos = async (req,res)=>{
       
 
         const [medicos,Total] = await Promise.all([
-            await Medicos.find({}).populate('usuarios','nombre img').populate('hospitales','nombre img')
+            await Medicos.find({}).populate('hospitales','img nombre').populate('usuarios','email nombre img')
             .skip(desde).limit(5),
 
             await Medicos.count()
@@ -34,6 +34,41 @@ const ConsultarMedicos = async (req,res)=>{
 
 }
 
+const traerMedico = async (req,res)=>{
+
+    const id = req.params.id;
+  
+    try {
+        const medico = await Medicos.findById(id);
+        
+        if (!medico){
+
+            res.status(404).json({
+                stauts:false,
+                mensaje:'El medico no existe'
+            });
+
+        }
+
+
+        res.status(200).json({
+            stauts:true,
+            mensaje:'Medico',
+            medico
+        });
+
+
+    } catch (error) {
+        
+        res.status(400).json({
+            stauts:false,
+            mensaje:'El medico no existe',
+            error
+        });
+
+    }
+
+}
 
 const GuardarMedicos = async (req,res)=>{
 
@@ -148,6 +183,7 @@ module.exports={
     ConsultarMedicos,
     GuardarMedicos,
     borrarMedicos,
-    ActualizarMedico
+    ActualizarMedico,
+    traerMedico 
 
 }

@@ -2,7 +2,7 @@ var express = require('express');
 const { Router } = require('express');
 const { check } = require('express-validator');
 const {GetUsuarios,CrearUSuario,actualizarUsuario,BorrarUsuario} = require ('../controller/usuarios');
-const { validarJWT } = require('../middlewares/validar-jwt');
+const { validarJWT,validarAdminRol } = require('../middlewares/validar-jwt');
 var app = Router();
 
 
@@ -14,7 +14,7 @@ app.post('/',
         check('password','Password obligatoria').not().isEmpty(),
         ] ,
     CrearUSuario);
-app.put('/:id',validarJWT,actualizarUsuario);
+app.put('/:id',[validarJWT],actualizarUsuario);
 app.delete('/:id',validarJWT,BorrarUsuario);
 
 module.exports=app;

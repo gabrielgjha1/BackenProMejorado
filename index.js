@@ -30,6 +30,8 @@ app.use('/api/hospitales',require('./routes/hospitales'));
 app.use('/api/medicos',require('./routes/Medicos'));
 app.use('/api/buscar',require('./routes/buscarTodo'));
 app.use('/api/subir',require('./routes/subir'));
+
+
 //verificar puerto
 app.listen(process.env.PORT,()=>{
     console.log('Servidor corriendo en el puertos '+ 3000)

@@ -62,7 +62,7 @@ const GuardarHospitales = async (req,res)=>{
 const EliminarHospitales = async (req,res )=>{
 
     const id = req.params.id;
-    console.log(id)
+
     try {
         
         const hospitales = await  Hospitales.findByIdAndDelete(id);
